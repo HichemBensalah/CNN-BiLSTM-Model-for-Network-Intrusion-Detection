@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Network Intrusion Detection</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Live Network Traffic Analysis</h1>
+        <div class="feed-container">
+            <table id="traffic-feed">
+                <thead>
+                    <tr>
+                        <th>Prediction</th>
+                        <th>Confidence</th>
+                        <th>Raw Event Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            // Connect to the WebSocket server
+            const socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port);
+
+            socket.on('connect', () => {
+                console.log('Successfully connected to the server!');
+            });
+
+            // Listen for the 'new_data' event from the server
+            socket.on('new_data', (data) => {
+                console.log('Received data:', data);
+                const feedBody = document.querySelector("#traffic-feed tbody");
+                const newRow = document.createElement('tr');
+
+                // Add a class based on the prediction for color-coding
+                newRow.classList.add(`prediction-${data.prediction.toLowerCase()}`);
+
+                // Create and append cells
+                newRow.innerHTML = `
+                    <td class="prediction-cell">${data.prediction}</td>
+                    <td>${data.confidence}</td>
+                    <td class="raw-data-cell">${data.raw_data}</td>
+                `;
+
+                // Add to the top of the table and limit rows
+                feedBody.prepend(newRow);
+                if (feedBody.rows.length > 50) {
+                    feedBody.deleteRow(feedBody.rows.length - 1);
+                }
+            });
+        });
+    </script>
+</body>
+</html>

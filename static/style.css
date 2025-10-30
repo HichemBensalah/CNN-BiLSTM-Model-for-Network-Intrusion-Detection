@@ -1,0 +1,69 @@
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Consolas', 'Menlo', 'monospace';
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h1 {
+    text-align: center;
+    color: #03dac6;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+.feed-container {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 5px;
+    padding: 15px;
+    height: 80vh;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+    border-bottom: 1px solid #333;
+}
+
+thead {
+    background-color: #2a2a2a;
+    color: #bb86fc;
+}
+
+.raw-data-cell {
+    font-size: 0.85em;
+    color: #a0a0a0;
+}
+
+/* Color coding for predictions */
+.prediction-cell {
+    font-weight: bold;
+}
+
+.prediction-normal {
+    background-color: rgba(46, 204, 113, 0.1);
+    color: #2ecc71; /* Green */
+}
+
+.prediction-dos, .prediction-u2r, .prediction-r2l {
+    background-color: rgba(231, 76, 60, 0.1);
+    color: #e74c3c; /* Red */
+}
+
+.prediction-probe {
+    background-color: rgba(241, 196, 15, 0.1);
+    color: #f1c40f; /* Yellow */
+}
